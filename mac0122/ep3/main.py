@@ -18,11 +18,15 @@ def to_tab(file):
     result = []
     lines = file.read().split('\n')
     for line in lines:
-        result.append(line.split(','))
+        if line != '':
+            result.append(line.split(','))
     return result
 
 
 def sort(tab):
+    tab.sort(key=lambda x: (x[1], x[2], x[0]))
+    for line in tab:
+        print(line)
     return tab
 
 
