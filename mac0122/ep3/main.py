@@ -11,7 +11,6 @@ def main():
         tab_insert = insert_sort(tab, tab_sort)
         tab_quick = quick_sort(tab, tab_sort)
         tab_tim = tim_sort(tab, tab_sort)
-        print(tab)
 
 
 def to_tab(file):
@@ -30,8 +29,18 @@ def sort(tab):
     return tab
 
 
-def insert_sort(tab, tab_sort):
-    return tab
+def insert_sort(array, tab_sort, key=None):
+    changed = True
+    while changed:
+        changed = False
+        for index, element in enumerate(array):
+            prev_element = array[index - 1]
+            if index > 0 and element[1] < prev_element[1]:
+                changed = True
+                left, right = element[1], prev_element[1]
+                array[index - 1] = left
+                array[index] = right
+    return array
 
 
 def quick_sort(tab, tab_sort):
