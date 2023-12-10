@@ -1,4 +1,4 @@
-import copy
+import time
 
 
 def main():
@@ -8,12 +8,12 @@ def main():
         filename = 'test1.txt'
         file = open(filename)
         tab = to_tab(file)
-        tab_sort = sort(list(tab))
-        tab_insert = insert_sort(list(tab))
-        tab_quick = quick_sort(list(tab), 0, len(tab) - 1)
-        tab_tim = tim_sort(list(tab), tab_sort)
-        for line in tab_tim:
-            print(line)
+        sort(list(tab))
+        insert_sort(list(tab))
+        start_quick = time.time()
+        quick_sort(list(tab), 0, len(tab) - 1)
+        print('Tempo quick sort:')
+        print(time.time() - start_quick)
         filename = 'fim'
 
 
@@ -27,7 +27,10 @@ def to_tab(file):
 
 
 def sort(tab):
+    start = time.time()
     tab.sort(key=lambda x: (x[1], x[2], x[0]))
+    print('Tempo sort do python:')
+    print(time.time() - start)
     return tab
 
 
@@ -39,6 +42,7 @@ def is_out_of_order(second, first):
 
 
 def insert_sort(tab):
+    start = time.time()
     for index in range(1, len(tab)):
         current = tab[index]
         previous_index = index - 1
@@ -46,6 +50,8 @@ def insert_sort(tab):
             tab[previous_index + 1] = tab[previous_index]
             previous_index -= 1
         tab[previous_index + 1] = current
+    print('Tempo sort inserção:')
+    print(time.time() - start)
     return tab
 
 
@@ -66,10 +72,6 @@ def partition(tab, low, high):
             (tab[index], tab[element_index]) = (tab[element_index], tab[index])
     (tab[index + 1], tab[high]) = (tab[high], tab[index + 1])
     return index + 1
-
-
-def tim_sort(tab, tab_sort):
-    return tab
 
 
 main()
